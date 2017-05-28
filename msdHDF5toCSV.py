@@ -171,7 +171,7 @@ def main():
         csvRowString = ("SongID,AlbumID,AlbumName,ArtistID,ArtistLatitude,ArtistLocation,"+
             "ArtistLongitude,ArtistName,Danceability,Duration,KeySignature,"+
             "KeySignatureConfidence,Tempo,TimeSignature,TimeSignatureConfidence,"+
-            "Title,Year")
+            "Title,Year,Hotness")
         #################################################
 
         csvAttributeList = re.split('\W+', csvRowString)
@@ -186,7 +186,7 @@ def main():
 
     #Set the basedir here, the root directory from which the search
     #for files stored in a (hierarchical data structure) will originate
-    basedir = "/home/ubuntu/songs/" # "." As the default means the current directory
+    basedir = "/mnt/volume/million_song_dataset/" # "." As the default means the current directory
     ext = ".h5" #Set the extension here. H5 is the extension for HDF5 files.
     #################################################
 
@@ -195,8 +195,8 @@ def main():
         files = glob.glob(os.path.join(root,'*'+ext))
         for f in files:
             print f
-            newFileName = f[19:len(f)-3]
-            #print basedir + newFileName[:6]
+            newFileName = f[33:len(f)-3]
+            #print  newFileName[:6]
             #f = newFileName
 #            if not os.path.exists(os.path.dirname(newFileName)):
             #print os.getcwd()
@@ -212,7 +212,7 @@ def main():
                         raise
                     pass
 
-            outputFile1 = open('/home/ubuntu/songs/songs_csv/'+ newFileName + '.csv', 'w+')
+            outputFile1 = open(basedir + 'songs_csv/'+ newFileName + '.csv', 'w+')
             #outputFile1.write("SongNumber,");
             #outputFile1.write(csvRowString + "\n");
             csvRowString = ""
@@ -242,7 +242,8 @@ def main():
             song.timeSignatureConfidence = str(hdf5_getters.get_time_signature_confidence(songH5File))
             song.title = str(hdf5_getters.get_title(songH5File))
             song.year = str(hdf5_getters.get_year(songH5File))
-
+            
+            song.hotness = str(hdf5_getters.get_song_hotttnesss(songH5File))
             #print song count
             #csvRowString += str(song.songCount) + ","
 
@@ -296,6 +297,8 @@ def main():
                     csvRowString += "\"" + song.title + "\""
                 elif attribute == 'Year'.lower():
                     csvRowString += song.year
+                elif attribute == 'Hotness'.lower():
+                    csvRowString += song.hotness
                 else:
                     csvRowString += "Erm. This didn't work. Error. :( :(\n"
 
