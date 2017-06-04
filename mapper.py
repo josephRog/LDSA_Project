@@ -2,10 +2,12 @@
 
 import sys
 
+line_count = 0
+
 for line in sys.stdin:
         line = line.strip()
         line = line.split(',')
-
+        line_count += 1
         #SongId = line[0]
         #AlbumID = line[1]
         #AlbumName = line[2]
@@ -25,6 +27,8 @@ for line in sys.stdin:
         year = int(line[16])
         hotness = float(line[17])
         #print(tempo)
-        if hotness > 0.5:
-                if (year > 0 and tempo > 0):
-                    print('%s \t %s' % (year, tempo))
+        #print(hotness)
+        #if (hotness >= 0.0):
+                #if (year > 0 and tempo > 0):
+        print('%s \t %s' % (year, tempo))
+#print line_count

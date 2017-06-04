@@ -186,8 +186,9 @@ def main():
 
     #Set the basedir here, the root directory from which the search
     #for files stored in a (hierarchical data structure) will originate
-    basedir = "/mnt/volume/million_song_dataset/" # "." As the default means the current directory
+    basedir = "/mnt/volume/million_song_dataset/U/" # "." As the default means the current directory
     ext = ".h5" #Set the extension here. H5 is the extension for HDF5 files.
+    outdir = "/mnt/volume/million_song_dataset/songs_csv/U/"
     #################################################
 
     #FOR LOOP
@@ -200,11 +201,11 @@ def main():
             #f = newFileName
 #            if not os.path.exists(os.path.dirname(newFileName)):
             #print os.getcwd()
-            if not os.path.exists(os.path.dirname(basedir + 'songs_csv/'  + newFileName[:6])):
+            if not os.path.exists(os.path.dirname(outdir  + newFileName[:6])):
 #                print 'hej'
                 try:
 #                    print 'hej'
-                    os.makedirs(os.path.dirname(basedir + 'songs_csv/' + newFileName[:6]))
+                    os.makedirs(os.path.dirname(outdir + newFileName[:6]))
                 except OSError as exc: # Guard against race condition
 #                    print 'san'
                     if exc.errno != errno.EEXIST:
@@ -212,7 +213,7 @@ def main():
                         raise
                     pass
 
-            outputFile1 = open(basedir + 'songs_csv/'+ newFileName + '.csv', 'w+')
+            outputFile1 = open(outdir + newFileName + '.csv', 'w+')
             #outputFile1.write("SongNumber,");
             #outputFile1.write(csvRowString + "\n");
             csvRowString = ""

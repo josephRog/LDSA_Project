@@ -5,18 +5,20 @@ import sys
 
 current_year = None
 current_tempo  = 0.0
+#total_count = 0
 year = None
-current_count = 0
+current_count = 1
 tempo = 0
 
 # input comes from STDIN
 for line in sys.stdin:
     # remove leading and trailing whitespace
     line = line.strip()
-
+    #total_count += 1
     # parse the input we got from mapper.py
     #(year, dancability), count = line.split('\t', 1)
-    values = line.split(' ')
+    values = line.split('\n')
+    values = values[0].split('\t')
     #print(values)
     (year, tempo), count = values, 1
     # convert count (currently a string) to int
@@ -39,12 +41,13 @@ for line in sys.stdin:
         if current_year:
             # write result to STDOUT
             print ('%s\t%s' % (current_year, current_tempo/current_count))
-        
-        current_count = count
+
+        #total_count += count
+        current_count = count        
         current_year = year
         current_tempo = tempo
 
 # do not forget to output the last word if needed!
 if current_year == year:
-    
         print ('%s\t%s' % (current_year, current_tempo/current_count))
+#print total_count
